@@ -1,13 +1,19 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# hola, hola
+passwd = open('/etc/passwd', 'r')
 
-fd = open('/etc/passwd', 'r')
+lineas = passwd.readlines()
+passwd.close()
 
-lineas = fd.readlines()
-fd.close()
+diccionario = {}
 
 for linea in lineas:
-    elementos = linea.split(':')
-    print elementos[0], elementos[-1][:-1]
+	elementos = linea.split(':')
+	diccionario[elementos[0]] = elementos[-1]
+
+
+try:
+	print 'root:', diccionario['root'],
+	print diccionario['imaginario'],
+except KeyError:
+	print 'El usuario "imaginario" no existe',
